@@ -1,0 +1,1445 @@
+/*
+ * FONTES
+ * 1. Regras @font-face: Carregamento das fontes Futura PT.
+ * Certifique-se de que os arquivos 'futura-pt-cond-bold.otf' e 'futura-pt-medium.otf'
+ * estejam na pasta 'fonts/'
+ */
+
+@font-face {
+    font-family: 'FuturaPTCondBold';
+    src: url('fonts/futura-pt-cond-bold.otf') format('opentype');
+    font-weight: normal; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FuturaPTMedium';
+    src: url('fonts/futura-pt-medium.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Base Styles */
+
+:root {
+    --color-orange: #FD763E;
+    --color-yellow: #DEFF6A;
+    --color-black: #222222;
+    --color-white: #FDFCF7;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ======== ESTILOS DA SPLASH SCREEN ======== */
+#splash-screen {
+    position: fixed; /* Fica fixo na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #DEFF6A; /* COR DE FUNDO: Mude este verde para o tom exato da sua marca */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Garante que fique acima de todo o conteúdo */
+    transition: opacity 0.5s ease-out; /* Animação suave de desaparecimento */
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Classe que o JavaScript adicionará para fazer o fade-out */
+#splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden; /* Garante que não interfira com cliques após desaparecer */
+    pointer-events: none; /* Desativa eventos de mouse/toque */
+}
+
+.splash-logo {
+    /* Ajuste o tamanho do seu logo aqui */
+    max-width: 150px; 
+    
+    /* Animação de "respiração" (pulsação) */
+    animation: pulse 2s infinite ease-in-out; 
+}
+
+/* Animação Keyframes: Efeito de pulsação */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1); /* Aumenta o logo em 10% no meio da animação */
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.wpp-fixed {
+    position: fixed;
+    z-index: 100;
+    right: 1vw;
+    bottom: 4vh;
+    width: 70px;
+    transition: .3s;
+}
+
+.wpp-fixed:hover {
+    transform: scale(1.05) !important;
+}
+
+.main {
+    margin-top: -30px;
+}
+
+/* Aplicação da fonte FuturaPTMedium ao corpo (subtítulos, parágrafos) */
+body {
+    font-family: 'FuturaPTMedium', Arial, Helvetica, sans-serif;
+    color: var(--color-black);
+    line-height: 1.5;
+}
+
+/* Aplicação da fonte FuturaPTCondBold aos títulos */
+h1,
+h2 {
+    font-family: 'FuturaPTCondBold', sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+.container {
+    padding: 0 20px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* Botão CTA (mantido do seu CSS) */
+.cta-btn {
+    font-family: 'FuturaPTMedium', sans-serif; 
+    border: none;
+    background: linear-gradient(to right, var(--color-orange), #FFA770, var(--color-orange));
+    background-size: 400% 400%;
+    background-position: 0% 50%;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 1px 4px 5px 4px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    font-weight: 900;
+    transition: background-position 1.5s ease, transform 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-decoration: none; /* <-- ADICIONE ESTA LINHA */
+}
+
+.cta-btn:hover {
+    background-position: 100% 50%;
+    transform: scale(1.01);
+}
+
+/* --- ESTILOS PARA A SEÇÃO HERO (BANNER PRINCIPAL) --- */
+
+.hero-banner {
+    /* * IMAGEM DE FUNDO: 
+     * SUBSTITUA 'caminho/da/sua/imagem-banner.jpg' 
+    */
+    background-image: url('images/new/bg_hero.jpg'); 
+    background-size: cover;
+    background-position: center top;
+    min-height: 90vh; /* Altura mínima para ocupar boa parte da tela */
+    display: flex;
+    align-items: center; /* Alinha o conteúdo verticalmente */
+    padding: 20px;
+}
+
+.hero-content {
+    /* Posiciona e limita a largura do conteúdo (Logo, Texto, CTA) */
+    max-width: 800px; /* Limita o bloco de texto na lateral esquerda */
+    color: var(--color-black); /* Cor de texto padrão para o conteúdo */
+    padding-left: 40px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.logo-joggy {
+    display: flex;
+    min-width: 200px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-joggy-green {
+    display: none;
+    min-width: 200px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-joggy .logo-icon {
+    /* * SUBSTITUA 'caminho/do/seu/logo-joggy.svg' */
+    margin-right: 10px;
+    max-width: 50vh;
+}
+
+.logo-joggy h1 {
+    font-size: 20px; /* Tamanho maior para o nome JOGGY */
+    color: var(--color-black);
+}
+
+.main-text {
+    margin-bottom: 30px;
+}
+
+.main-text h2 {
+    /* Aplica as características do H2 (FuturaPTCondBold, uppercase) */
+    font-size: 45px; /* Tamanho responsivo para os títulos */
+    color: var(--color-black);
+    margin: 5px 0;
+}
+
+.nanotech-info {
+    /* Cor e estilo da "Nanotecnologia Transdérmica" */
+    font-family: 'FuturaPTMedium', sans-serif;
+    font-size: clamp(28px, 3vw, 24px);
+    margin-top: 15px;
+    line-height: 1.3;
+}
+
+.nanotech-info .main-5-in-1 {
+    /* Destaca o "5 em 1" em laranja como o botão */
+    font-family: 'FuturaPTCondMedium', sans-serif;
+    color: var(--color-black); 
+    font-size: clamp(32px, 3vw, 24px);
+    margin-top: 5px;
+}
+
+/* Responsividade para a Hero Section */
+@media (max-width: 600px) {
+    .hero-banner {
+        min-height: 60vh;
+        align-items: flex-end; /* Coloca o conteúdo na parte de baixo */
+        padding-bottom: 50px;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/new/bg_hero.jpg');
+    }
+
+    .logo-joggy {
+        display: none;
+        max-width: 100px;
+        min-width: 0;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .logo-joggy-green {
+        padding-top: 20px;
+        display: block;
+        max-width: 80px;
+        min-width: none;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .logo-joggy-green img {
+        min-width: none;
+        max-width: 35vh;
+    }
+
+    .main-text h2 {
+        color: var(--color-white);
+        font-size: 29px;
+    }
+
+    .nanotech-info {
+    color: var(--color-white);
+    font-size: 19px;
+
+    } 
+    
+    .logo-joggy .logo-icon {
+        margin-right: 10px;
+        max-width: 30vh;
+    }
+
+    .hero-content {
+        padding: 15px;
+        border-radius: 10px;
+        width: 100%;
+        color: var(--color-white);
+        max-width: 100%;
+    }
+}
+
+/* 1. A BARRA PRINCIPAL (O CONTAINER) */
+.marquee-bar {
+  background-color: var(--color-yellow); 
+  width: 100%;
+  overflow: hidden; 
+  padding: 16px 0; 
+  box-sizing: border-box; 
+}
+
+/* 2. O WRAPPER QUE SERÁ ANIMADO */
+.marquee-wrapper-right {
+  display: flex;
+  animation: scroll-right 5s linear infinite;
+}
+
+/* 3. OS BLOCOS DE CONTEÚDO (O ORIGINAL E A CÓPIA) */
+.marquee-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 40px; /* Ajuste o espaçamento conforme seu gosto */
+  padding-right: 40px; /* Deve ser igual ao 'gap' */
+}
+
+/* 4. A IMAGEM DO LOGO */
+.marquee-content img {
+  height: 45px; /* Ajuste para o tamanho desejado */
+  max-width: none; 
+}
+
+/* 5. A ANIMAÇÃO (KEYFRAMES) */
+@keyframes scroll-right {
+  from {
+    transform: translateX(-20%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* --- SEÇÃO 1: REGEN5™ --- */
+.regen5-sec {
+    /* Fundo branco-creme claro para contraste sutil, como na imagem */
+    background-color: var(--color-white); 
+    padding: 60px 0; /* Mais padding para destacar a seção */
+
+}
+
+/* Container específico para layout de dois blocos */
+.regen5-layout {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    justify-content: space-between;
+}
+
+.regen5-text-content {
+    flex: 0.8; /* Ocupa metade do espaço */
+    text-align: left;
+}
+
+.regen5-title {
+    font-size: clamp(26px, 6vw, 60px); 
+    line-height: 1;
+    color: var(--color-orange); 
+    margin-bottom: 20px;
+}
+
+/* --- FAÇA A MUDANÇA AQUI --- */
+.regen5-title .black-text {
+    color: var(--color-black);
+        letter-spacing: 10px; 
+
+    /* display: block;  <-- APAGUE OU COMENTE ESTA LINHA */
+}
+
+/* Esta regra que criamos antes permanece igual */
+.highlight-orange {
+    color: var(--color-orange);
+    letter-spacing: 10px; 
+    text-decoration: underline; 
+    text-decoration-color: var(--color-orange);
+    text-decoration-thickness: 5px; 
+}
+
+.regen5-subtitle {
+    font-size: clamp(18px, 2.5vw, 22px);
+    margin: 0px 0 0 0;
+    max-width: 90%;
+    font-weight: 500;
+}
+
+.regen5-subtitle strong {
+    font-family: 'FuturaPTCondBold', sans-serif;
+}
+
+.regen5-image-content {
+    flex: 1; /* Ocupa a outra metade */
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.regen5-main-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Responsividade (Ajuste para Mobile/Tablet) */
+@media (max-width: 900px) {
+    .regen5-layout {
+        flex-direction: column; /* Empilha o texto e a imagem */
+        text-align: center;
+    }
+    
+    .regen5-text-content {
+        max-width: 100%;
+        margin-bottom: 30px;
+        text-align: center; /* Centraliza o texto no mobile */
+    }
+    
+    .regen5-subtitle {
+        max-width: 100%;
+    }
+    
+    .regen5-image-content {
+        max-width: 100%; /* Ajusta a imagem em telas menores */
+    }
+
+    .regen5-main-image {
+        width: 100%;
+    }
+    
+    .regen5-title {
+        font-size: 30px;
+    }
+}
+
+/* --- SEÇÃO 2: DORES (YOU SUFFER) --- */
+.suffer-sec {
+    text-align: center;
+    padding: 40px 0;
+    /* Usa a cor amarela (var(--color-yellow)) conforme o design */
+    background-color: var(--color-yellow); 
+}
+
+
+.suffer-title {
+    margin-bottom: 50px;
+    margin-top: 40px;
+    font-size: clamp(24px, 5vw, 40px);
+}
+
+.suffer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px 100px; /* Ajuste para ter mais espaço lateral entre as imagens */
+    max-width: 900px; /* Limite a largura para melhor visualização do grid */
+    margin: 0 auto 30px auto;
+}
+
+.suffer-item {
+    /* Define a largura de cada item para 7 itens no total (4 na primeira linha, 3 na segunda) */
+    width: 120px; 
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    /* O texto já está na imagem, então podemos ocultar o <p> ou dar pouco destaque se o texto for redundante */
+}
+
+/* Esconde o texto abaixo da imagem, pois o texto já está embutido na imagem conforme sua observação */
+.suffer-item p {
+    display: none; 
+}
+
+.suffer-item img {
+    /* Garante que as imagens ocupem seu container (120px) */
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 5px;
+    max-width: 150px; /* Limita o tamanho do ícone */
+    border-radius: 10px; /* Borda levemente arredondada como no design */
+}
+
+.suffer-footer {
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    font-size: clamp(20px, 3vw, 18px);
+}
+
+.suffer-footer1 {
+    max-width: 600px;
+    margin: 0 auto 0px auto;
+    font-size: clamp(20px, 3vw, 18px);
+}
+
+/* --- Responsividade (Ajuste do Grid) --- */
+@media (max-width: 768px) {
+    .suffer-grid {
+        gap: 15px 20px;
+    }
+
+    .suffer-item {
+        /* Permite 3 itens por linha em telas menores */
+        width: 30%; 
+        max-width: 100px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .suffer-sec {
+        padding: 30px 0;
+    }
+    
+    .suffer-item {
+        /* 2 itens por linha em telas muito pequenas */
+        width: 45%; 
+        max-width: 150px;
+    }
+}
+
+/* --- SEÇÃO 3: ATIVOS NATURAIS --- */
+.actives-sec {
+    text-align: center;
+    padding: 50px 0;
+    /* Usa a cor laranja (var(--color-orange)) conforme o design */
+    background-color: var(--color-orange); 
+}
+
+.actives-title {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    font-size: clamp(24px, 4.5vw, 36px);
+    color: var(--color-white); /* Cor do texto principal */
+}
+
+.actives-title .white-text-block {
+    color: var(--color-black); /* Destaque em branco para a Nanotecnologia */
+    display: block; /* Garante que fique em uma nova linha para o destaque */
+    margin: 5px 0;
+    font-size: 45px;
+}
+
+.actives-grid {
+    display: grid;
+    /* Padrão: 4 colunas no desktop */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px 40px;
+    max-width: 1000px;
+    margin: auto;
+    justify-items: center; /* Centraliza os itens na grade */
+}
+
+.active-item {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-white); /* Texto dos ativos em branco */
+}
+
+.active-item img {
+    /* As imagens dos ativos são redondas, centralizadas e com margem */
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+    max-width: 160px;
+    max-height: 160px;
+    min-width: 50px;
+    min-height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Responsividade (Garantir 2 Colunas no Mobile) --- */
+@media (max-width: 768px) {
+    .actives-grid {
+        /* Mobile/Tablet: 2 colunas */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 25px 20px;
+        max-width: 500px; /* Limita a largura do grid para melhor visualização em 2 colunas */
+    }
+    
+    .actives-title {
+        font-size: clamp(22px, 5vw, 30px);
+    }
+
+    .actives-title .white-text-block {
+        color: var(--color-black); /* Destaque em branco para a Nanotecnologia */
+        display: block; /* Garante que fique em uma nova linha para o destaque */
+        margin: 5px 0;
+        font-size: 28px;
+    }
+    
+    .active-item {
+        max-width: 150px;
+    }
+}
+
+/* --- SEÇÃO 4: COMPARE E COMPROVE (Usando Imagem PNG) --- */
+.compare-sec-img {
+    background-color: var(--color-white); /* Fundo branco, conforme solicitado */
+    padding-top: 30px;
+    
+    text-align: center;
+}
+
+.compare-title {
+    color: var(--color-black);
+    font-size: clamp(30px, 5vw, 45px);
+}
+
+.compare-subtitle {
+    margin: 10px 0 30px 0;
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 500;
+}
+
+.comparison-table-png {
+    /* Garante que a imagem se ajuste à largura da tela e fique centralizada */
+    width: 100%;
+    max-width: 900px; 
+    height: auto;
+    display: block;
+    margin: 0 auto 40px auto; /* Adiciona margem inferior */
+}
+ 
+.comparison-table-2-png {
+    display: none;
+}
+
+.cta-container {
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .comparison-table-2-png {
+    /* Garante que a imagem se ajuste à largura da tela e fique centralizada */
+    width: 100%;
+    max-width: 900px; 
+    height: auto;
+    display: block;
+    margin: 0 auto 40px auto; /* Adiciona margem inferior */
+}
+ 
+.comparison-table-png {
+    display: none;
+}
+}
+
+/* ===== Seção 6: Galeria de Produtos (Estilo "Tijolinho") - CORRIGIDO ===== */
+
+.product-gallery-sec {
+    background-color: var(--color-yellow);
+    margin: 0 auto;
+    padding: 60px 15px;
+}
+
+.product-gallery-grid {
+    display: grid;
+    /* 1. O grid de 5 colunas (3+2) */
+    grid-template-columns: repeat(5, 1fr);
+    
+    /* 2. Altura da linha: 
+       Ajustei para 25vw para ficar um pouco mais alto 
+       e menos "achatado". Ajuste se preferir.
+    */
+    grid-auto-rows: 25vw; /* <<<<<<< PODE AJUSTAR AQUI */
+    
+    /* 3. A mágica para preencher os buracos */
+    grid-auto-flow: dense;
+    
+    /* O espaço entre as fotos */
+    gap: 1rem;
+}
+
+.product-gallery-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 16px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+}
+
+/* --- CORREÇÃO APLICADA AQUI --- */
+/* Agora só definimos a LARGURA (column span), 
+   a altura (row span) será 1 para todas (o padrão).
+*/
+
+/* Estilo 1: Imagens LARGAS (3 colunas)
+   Aplica-se à 1ª, 4ª e 5ª imagem
+*/
+.product-gallery-grid img:nth-child(1),
+.product-gallery-grid img:nth-child(4),
+.product-gallery-grid img:nth-child(5) {
+    grid-column: span 3; /* Ocupa 3 das 5 colunas */
+    /* Removido o grid-row: span 1; (já é o padrão) */
+}
+
+/* Estilo 2: Imagens ESTREITAS (2 colunas)
+   Aplica-se à 2ª, 3ª e 6ª imagem
+*/
+.product-gallery-grid img:nth-child(2),
+.product-gallery-grid img:nth-child(3),
+.product-gallery-grid img:nth-child(6) {
+    grid-column: span 2; /* Ocupa 2 das 5 colunas */
+    /* Removido o grid-row: span 2; (ESSE ERA O ERRO) */
+}
+
+
+/* =================================================== */
+/* MEDIA QUERIES (Responsivo) - Sem alteração     */
+/* =================================================== */
+
+/* Para Tablets (ex: iPads) */
+@media (max-width: 992px) {
+    .product-gallery-grid {
+        /* Como a tela diminuiu, 25vw pode deixar a imagem 
+          muito "fina". Aumentamos a proporção da altura.
+        */
+        grid-auto-rows: 28vw; 
+        gap: 0.75rem; /* Diminui o espaço */
+    }
+}
+
+/* Para Celulares (layout de 5 colunas mantido) */
+@media (max-width: 768px) {
+    .product-gallery-grid {
+        /* Aumentamos mais a proporção da altura 
+          para as imagens não ficarem espremidas 
+        */
+        grid-auto-rows: 32vw; /* << Você pode ajustar esse valor */
+        gap: 0.5rem; /* Espaço mínimo */
+
+        /* AQUI ESTÁ A MUDANÇA:
+          NÃO TEMOS MAIS o 'grid-template-columns: 1fr 1fr'
+          NÃO TEMOS MAIS o reset dos 'spans'.
+        */
+    }
+}
+
+/* Para Celulares bem pequenos */
+@media (max-width: 480px) {
+    .product-gallery-grid {
+        /* Ainda mais proporção de altura para 
+          compensar a tela super estreita.
+        */
+        grid-auto-rows: 35vw; /* << Ajuste fino aqui */
+        gap: 0.5rem;
+        
+        /* REMOVEMOS:
+          - grid-template-columns: 1fr;
+        */
+    }
+}
+
+/* ===== Seção 6.1: CTA Abaixo da Galeria ===== */
+
+.gallery-cta-block {
+    text-align: center;
+    /* Adiciona um bom espaço entre a galeria e o texto */
+    padding: 60px 0 30px 0; 
+}
+
+/* * Reutilizamos .suffer-title, 
+ * mas ajustamos as margens para este contexto.
+*/
+.gallery-cta-block .suffer-title {
+    margin-top: 0;
+    margin-bottom: 25px; /* Menos espaço que o original */
+    line-height: 1.3; /* Mais espaço entre as linhas do H2 */
+}
+
+/* * Reutilizamos .suffer-footer,
+ * só garantindo o espaço antes do botão.
+*/
+.gallery-cta-block .suffer-footer {
+    margin-bottom: 40px; /* Espaço antes do botão */
+}
+
+/* Ajuste para mobile, se o título ficar muito colado */
+@media (max-width: 768px) {
+    .gallery-cta-block {
+        padding-top: 40px;
+    }
+}
+
+/* --- 7. SEÇÃO 5: DEPOIMENTOS (REVISADO E ATUALIZADO) --- */
+.testimonial-sec {
+  text-align: center;
+  padding: 60px 0;
+  background-color: var(--color-orange); 
+  overflow-x: hidden; 
+}
+
+.testimonial-title {
+  margin-bottom: 50px;
+  font-size: clamp(30px, 6vw, 50px);
+  color: var(--color-black);
+}
+
+.testimonial-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.testimonial-list {
+  display: flex;
+  width: 100%; 
+  overflow-x: auto; 
+  scroll-snap-type: x mandatory; 
+  gap: 80px; 
+  padding: 20px 40vw; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.testimonial-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* 🚨 ATUALIZADO: 
+  Card agora tem fundo e alinhamento à esquerda 
+*/
+.depo-card {
+  /* MUDANÇA: Agora o card tem fundo branco */
+  background-color: var(--color-orange); 
+  border-radius: 12px; /* A borda arredondada geral */
+  width: 400px; 
+  padding: 0; /* A imagem vai "colada" no topo */
+  flex-shrink: 0;
+  scroll-snap-align: center; 
+  transition: all 0.3s ease; /* Animação mais suave */
+  transform: scale(0.95); 
+  overflow: hidden; /* IMPORTANTE: para forçar a borda da imagem */
+  text-align: left; /* Alinha o texto à esquerda */
+  color: var(--color-black); /* Cor do texto */
+}
+
+/* 🚨 ATUALIZADO: Estilo do card central (GRANDE) */
+.depo-card.is-central {
+  width: 420px; /* Ajustei a largura */
+  transform: scale(1); /* Tamanho normal */
+}
+
+/* 🚨 ATUALIZADO: 
+  Aqui está a mágica da borda e altura da imagem 
+*/
+.depo-card img {
+  width: 100%;
+  height: 280px; /* Altura fixa para a imagem */
+  object-fit: cover; /* Garante que a foto cubra o espaço */
+  display: block; 
+  object-position: center top;
+  
+  /* REQUISIÇÃO: Borda só em cima */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* --- ADICIONADO: Conteúdo de texto do card --- */
+.depo-content {
+  /* Espaçamento interno para o texto */
+  padding: 20px 25px 25px 25px; 
+}
+
+.depo-username {
+  /* Reutilizando sua fonte de título */
+  font-family: 'FuturaPTCondBold', sans-serif; 
+  font-size: 24px;
+  text-transform: uppercase;
+  color: var(--color-white); /* Destaque no @username */
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.depo-text {
+  /* Reutilizando sua fonte de corpo */
+  font-family: 'FuturaPTMedium', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: var(--color-white);
+  line-height: 1.5;
+}
+
+
+/* 🚨 ATUALIZADO: Posição das Setas */
+.nav-arrow {
+  position: absolute;
+  /* MUDANÇA: Subi as setas para alinhar com a IMAGEM */
+  top: 125px; /* Metade da altura da imagem (250px / 2) */
+  transform: translateY(-50%);
+  font-size: 40px;
+  font-weight: 800;
+  cursor: pointer;
+  color: var(--color-black);
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.left-arrow {
+  left: 50%;
+  /* (Metade do card central 420/2) + 60px = 210 + 60 = -270px */
+  margin-left: -270px; 
+}
+
+.right-arrow {
+  right: 50%;
+  margin-right: -270px;
+}
+
+
+/* --- Responsividade (Com ajustes) --- */
+@media (max-width: 992px) {
+  .depo-card.is-central {
+    width: 350px;
+  }
+  
+  .left-arrow {
+    left: 20px;
+    margin-left: 0;
+  }
+  .right-arrow {
+    right: 20px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+    .testimonial-list {
+        gap: 20px; 
+        padding: 20px; 
+    }
+    
+  .depo-card {
+    width: 70vw; 
+    transform: scale(1); 
+  }
+  .depo-card.is-central {
+    width: 70vw;
+  }
+  
+  /* --- ADICIONADO: Ajustes mobile para a nova estrutura --- */
+  .depo-card img {
+      height: 200px; /* Altura menor no mobile */
+  }
+  
+  .depo-content {
+      padding: 20px;
+  }
+
+  .depo-username {
+      font-size: 20px;
+  }
+
+  .depo-text {
+      font-size: 15px;
+  }
+  /* --- Fim dos ajustes mobile --- */
+
+  .nav-arrow {
+    display: none; 
+  }
+}
+
+
+
+/* --- SEÇÃO 7: COMPRA SEGURA --- */
+
+.price-from {
+    font-size: 16px;
+}
+
+.price-card {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.price-to {
+    font-size: 15px;
+    color: #333;
+}
+
+/* --- SEÇÃO 8: OPÇÕES DE COMPRA (NOVO ESTILO CHECKOUT) --- */
+
+.checkout-sec {
+    background-color: var(--color-white); /* Fundo escuro da inspiração */
+    color: var(--color-black);
+    padding: 60px 0;
+}
+
+.checkout-layout {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.checkout-image-col {
+    flex: 1;
+    max-width: 45%;
+    text-align: center;
+}
+
+.checkout-image-col img {
+    width: 100%;
+    max-width: 450px; /* Limita o tamanho da imagem */
+    height: auto;
+    border-radius: 15px;
+}
+
+.checkout-content-col {
+    flex: 1;
+    max-width: 55%;
+}
+
+.checkout-title {
+    /* Usa a fonte de título do seu style.css */
+    font-family: 'FuturaPTCondBold', sans-serif;
+    font-size: clamp(30px, 4vw, 42px);
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    color: var(--color-black); /* Título branco */
+}
+
+/* O .orangeTxt já existe no seu CSS, mas garantimos a cor */
+.checkout-title .orangeTxt {
+    color: var(--color-orange);
+}
+
+.checkout-description {
+    /* Usa a fonte de corpo do seu style.css */
+    font-family: 'FuturaPTMedium', Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #0f0f0f; /* Um pouco mais suave que branco puro */
+    max-width: 600px;
+}
+
+.checkout-select-title {
+    font-family: 'FuturaPTMedium', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.checkout-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkout-option-card {
+    background-color: rgb(238, 238, 238); /* Fundo do card (mais claro que o fundo) */
+    border: 2px solid var(--color-yellow); /* Borda sutil */
+    border-radius: 12px;
+    transition: border-color 0.3s ease;
+}
+
+.checkout-option-card.is-open {
+    /* Cor de destaque da JOGGY (inspiração usa pink) */
+    border-color: var(--color-orange); 
+}
+
+.checkout-option-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    gap: 15px;
+}
+
+.checkout-option-header input[type="radio"] {
+    transform: scale(1.3);
+    /* Cor do radio button usando sua marca */
+    accent-color: var(--color-orange); 
+    flex-shrink: 0;
+}
+
+.option-main-info {
+    flex-grow: 1;
+    color: var(--color-black);
+}
+
+.option-title {
+    font-family: 'FuturaPTCondBold', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    color: var(--color-black);
+}
+
+.checkout-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.price-original {
+    text-decoration: line-through; /* O famoso "riscado" */
+    color: #757575;         /* Um cinza, para fingir que não importa mais */
+    font-weight: normal;      /* Garante que não está em negrito */
+    margin-right: 8px;        /* Um respiro entre os preços */
+}
+
+.price-discounted {
+    /* ESTA É A LINHA QUE CORRIGE TUDO: */
+    font-family: 'FuturaPTCondBold', sans-serif; 
+    font-size: 20px;
+    font-weight: 700; /* 700 é o 'bold' padrão */
+    color: var(--color-black);  /* Garante a cor principal */
+    /* A linha 'font: bold;' foi removida pois estava incorreta */
+}
+
+.tag {
+    font-family: 'FuturaPTMedium', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.tag.tag-yellow {
+    /* Usando sua cor amarela para os tags */
+    background-color: var(--color-yellow);
+    color: var(--color-black);
+}
+
+.option-price {
+    text-align: right;
+    margin-left: auto; /* Empurra o preço para a direita */
+    padding-left: 10px;
+}
+
+.price-total {
+    font-family: 'FuturaPTMedium', sans-serif;
+    font-size: 20px;
+    color: var(--color-black);
+    white-space: nowrap;
+}
+
+/* Corpo Colapsável */
+.checkout-option-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding-left: 55px; /* Alinha com o texto (depois do radio) */
+    padding-right: 20px;
+}
+
+.checkout-option-card.is-open .checkout-option-body {
+    max-height: 300px; /* Altura para expandir */
+    padding-bottom: 45px;
+}
+
+.option-details-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 20px 0;
+    font-family: 'FuturaPTMedium', sans-serif;
+    font-size: 16px;
+    padding-bottom: 10px;
+    color: #000000;
+}
+
+.option-details-list li {
+    margin-bottom: 5px;
+}
+
+/* O botão CTA já está no seu style.css, apenas ajustamos */
+.checkout-option-body .cta-btn {
+    width: 100%;
+    text-underline-position: none;
+    max-width: 350px;
+    text-align: center;
+    padding: 20px; /* Botão maior */
+    font-size: 18px;
+}
+
+/* --- Responsividade (Substitui o @media(max-width: 850px) antigo) --- */
+@media (max-width: 750px) {
+    .checkout-layout {
+        /* Imagem em cima, conteúdo embaixo */
+        flex-direction: column; 
+    }
+
+    .checkout-title {
+        text-align: center;
+    }
+
+    .checkout-description {
+        text-align: center;
+    }
+
+    .checkout-image-col {
+        max-width: 90%; 
+        margin: 0 auto 20px auto; 
+    }
+
+    .checkout-content-col {
+        max-width: 100%; /* O conteúdo continua 100% */
+    }
+
+    .checkout-option-header {
+        padding: 15px;
+        gap: 12px;
+        /* Quebra de linha para o preço se necessário */
+        flex-wrap: wrap; 
+    }
+
+    .option-title {
+        font-size: 18px;
+    }
+
+    .price-total {
+        font-size: 20px;
+    }
+
+    .option-price {
+        margin-left: 0;
+        /* Alinha o preço com o título no mobile */
+        text-align: left; 
+        width: 100%;
+        margin-top: 5px;
+        padding-left: 30px; /* Alinha abaixo do título */
+    }
+    
+    .checkout-option-body {
+        padding-left: 50px;
+        padding-right: 15px;
+    }
+    
+    .checkout-option-body .cta-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* --- SEÇÃO 9: PERGUNTAS FREQUENTES (FAQ) --- */
+
+.faq {
+    background-color: rgb(245, 245, 245);
+    padding-bottom: 10vh;
+    padding-top: 30px;
+}
+
+.faq-container {
+    max-width: 1000px;
+    margin: auto;
+
+}
+
+.faq-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.faq-item {
+    background-color: rgb(238, 238, 238);
+    margin-bottom: 5px;
+    padding: 20px;
+}
+
+.faq-question {
+    cursor: pointer;
+    position: relative;
+    font-weight: bold;
+    padding-right: 25px;
+}
+
+.faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active::after {
+    content: '-';
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 15px;
+    color: #333;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.faq-answer.open {
+    max-height: 500px;
+    /* suficiente para expandir */
+    margin-top: 5px;
+    opacity: 1;
+}
+
+
+.wa-me {
+    background-color: rgb(245, 245, 245);
+    text-align: center;
+    padding-bottom: 8vh;
+}
+
+.wa-me>P {
+    margin: 16px 0;
+    font-weight: 700;
+}
+
+/* --- SEÇÃO 10: FOOTER --- */
+
+footer {
+    padding: 5vh 100px;
+    background-color: #222222;
+}
+
+.logo {
+    width: 150px;
+}
+
+footer>.contato {
+    color: #FDFCF7;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.contato>p>a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.cards-footer {
+    width: 500px;
+}
+
+.orangeTxt {
+    color: var(--color-orange);
+    font-weight: 700;
+}
+
+@media(max-width: 850px) {
+
+    .bonus {
+        gap: 50px;
+    }
+
+    .bonus-txt {
+        max-width: 800px;
+        width: 93vw;
+        font-weight: 700;
+    }
+
+    .bonus-txt>h1 {
+        line-height: 1em;
+        margin-bottom: 15px;
+    }
+
+    .bonus-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+    }
+
+    .bonus-grid-content {
+        flex-direction: column;
+        width: 320px;
+    }
+
+    .option-card {
+        flex-direction: row;
+        /* Keep as row, but adjust internal flex */
+        align-items: center;
+        /* Center vertically for radio */
+        padding: 10px;
+        min-height: auto;
+    }
+
+    .option-content {
+        margin-left: 0;
+        /* No extra margin for content */
+    }
+
+    .option-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .option-header .title {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .option-header .units {
+        margin-left: 0;
+        margin-top: 2px;
+    }
+
+    .price-info {
+        margin-left: 10px;
+        align-items: flex-end;
+    }
+
+    .highlights {
+        font-size: 0.8em;
+        margin-top: 8px;
+        /* More space for highlights */
+    }
+
+    .highlight-item {
+        font-size: 0.9em;
+    }
+
+    footer {
+        padding: 8vh 0;
+    }
+
+    footer>.contato {
+        align-items: center;
+        gap: 20px;
+    }
+
+    .cards-footer {
+        width: 300px;
+    }
+
+    .contato>p>a {
+        color: #e0e0e0;
+        text-decoration: none;
+    }
+}
