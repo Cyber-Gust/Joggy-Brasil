@@ -2,61 +2,66 @@
   "name": "JOGGY - Muscle Rub 5 em 1",
   "short_name": "JOGGY",
   "description": "Alívio 5 em 1 para Dores Musculares com Nanotecnologia REGEN5™.",
-  "start_url": "/",
+  "lang": "pt-BR",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
   "orientation": "portrait-primary",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "images/new/icon.png",
+      "src": "favicon.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "images/new/icon.png",
+      "src": "favicon.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "images/new/icon.png",
+      "src": "favicon.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "images/new/icon.png",
-      "sizes": "144x144",
+      "src": "favicon.png",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "images/new/icon.png",
-      "sizes": "152x152",
+      "src": "favicon.png",
+      "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "images/new/icon.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "favicon.png",
+      "sizes": "384x384",
+      "type": "image/png"
     },
     {
-      "src": "images/new/logo_hero.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "images/new/icon.png",
+      "src": "favicon.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "images/new/logo_hero.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "images/new/screenshot_desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "JOGGY no Desktop"
+    },
+    {
+      "src": "images/new/screenshot_mobile.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "JOGGY no Celular"
+    }
+  ],
+  "categories": ["saúde", "fitness", "bem-estar", "shopping"]
 }
